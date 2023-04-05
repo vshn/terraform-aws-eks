@@ -1,0 +1,143 @@
+variable "cluster_name" {
+  description = "The name of the EKS cluster"
+  type        = string
+}
+
+variable "vpc_name" {
+  description = "The name of the VPC"
+  type        = string
+  default     = ""
+}
+
+variable "private_subnets" {
+  description = "The private subnets to use for the VPC"
+  type        = list(string)
+  default     = null
+}
+
+variable "public_subnets" {
+  description = "The public subnets to use for the VPC"
+  type        = list(string)
+  default     = null
+}
+
+variable "intra_subnets" {
+  description = "The intra subnets to use for the VPC"
+  type        = list(string)
+  default     = null
+}
+
+variable "cluster_version" {
+  description = "The version of the EKS cluster (major.minor)"
+  type        = string
+}
+
+variable "cluster_endpoint_private_access" {
+  description = "Whether to enable private access to the EKS cluster endpoint"
+  type        = bool
+  default     = true
+}
+
+variable "cluster_endpoint_public_access" {
+  description = "Whether to enable public access to the EKS cluster endpoint"
+  type        = bool
+  default     = true
+}
+
+variable "cluster_endpoint_public_access_cidrs" {
+  description = "The CIDR blocks to allow access to the EKS cluster endpoint"
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
+}
+
+variable "vpc_cni_configuration_values" {
+  description = "The configuration values for the VPC CNI plugin"
+  type        = map(any)
+  default = {
+    env = {
+      ENABLE_PREFIX_DELEGATION = "true",
+      WARM_PREFIX_TARGET       = "1"
+    }
+  }
+}
+
+variable "ami_id" {
+  description = "The AMI ID to use for the EKS worker nodes"
+  type        = string
+}
+
+variable "kubelet_args" {
+  description = "The kubelet arguments to use for the EKS worker nodes"
+  type        = list(string)
+  default     = []
+}
+
+variable "instance_types" {
+  description = "The instance types to use for the EKS worker nodes"
+  type        = list(string)
+  default     = []
+}
+
+variable "min_size" {
+  description = "The minimum number of worker nodes"
+  type        = number
+}
+
+variable "max_size" {
+  description = "The maximum number of worker nodes"
+  type        = number
+}
+
+variable "desired_size" {
+  description = "The desired number of worker nodes"
+  type        = number
+}
+
+variable "cluster_log_retention" {
+  description = "The number of days to retain the EKS cluster logs"
+  type        = number
+  default     = 7
+}
+
+variable "vpc_cidr" {
+  description = "The CIDR block for the VPC"
+  type        = string
+}
+
+variable "azs" {
+  description = "The availability zones to use for the VPC"
+  type        = list(string)
+  default     = ["eu-west-1a", "eu-west-1b", "eu-west-1c"]
+}
+
+variable "enable_nat_gateway" {
+  description = "Whether to enable NAT gateways for the VPC"
+  type        = bool
+}
+
+variable "single_nat_gateway" {
+  description = "Whether to use a single NAT gateway for the VPC"
+  type        = bool
+}
+
+variable "enable_dns_hostnames" {
+  description = "Whether to enable DNS hostnames for the VPC"
+  type        = bool
+}
+
+variable "enable_flow_log" {
+  description = "Whether to enable flow logs for the VPC"
+  type        = bool
+}
+
+variable "create_flow_log_cloudwatch_iam_role" {
+  description = "Whether to create the IAM role for the flow log"
+  type        = bool
+  default     = true
+}
+
+variable "create_flow_log_cloudwatch_log_group" {
+  description = "Whether to create the CloudWatch log group for the flow log"
+  type        = string
+  default     = true
+}
