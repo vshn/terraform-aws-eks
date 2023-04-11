@@ -32,4 +32,9 @@ module "vpc" {
   private_subnet_tags = {
     "kubernetes.io/role/internal-elb" = 1
   }
+
+  map_public_ip_on_launch       = var.map_public_ip_on_launch
+  manage_default_security_group = var.manage_default_security_group
+  manage_default_route_table    = var.manage_default_route_table
+  manage_default_network_acl    = var.manage_default_network_acl
 }

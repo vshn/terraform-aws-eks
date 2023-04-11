@@ -141,3 +141,27 @@ variable "create_flow_log_cloudwatch_log_group" {
   type        = string
   default     = true
 }
+
+variable "map_public_ip_on_launch" {
+  description = "Specify true to indicate that instances launched into the subnet should be assigned a public IP address."
+  type        = bool
+  default     = true
+}
+
+variable "manage_default_security_group" {
+  description = "Whether to manage the default security group for the VPC"
+  type        = bool
+  default     = false
+}
+
+variable "manage_default_route_table" {
+  description = "Whether to manage the default route table for the VPC"
+  type        = bool
+  default     = false
+}
+
+variable "manage_default_network_acl" {
+  description = "Whether to manage the default network ACL for the VPC"
+  type        = bool
+  default     = false
+}
