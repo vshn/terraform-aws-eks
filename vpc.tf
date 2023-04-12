@@ -38,3 +38,18 @@ module "vpc" {
   manage_default_route_table    = var.manage_default_route_table
   manage_default_network_acl    = var.manage_default_network_acl
 }
+
+module "endpoints" {
+  source  = "terraform-aws-modules/vpc/aws//modules/vpc-endpoints"
+  version = "4.0.1"
+
+  vpc_id             = module.vpc.vpc_id
+  security_group_ids = [module.vpc.default_security_group_id]
+
+  endpoints = {
+    s3 = {
+      service = "s3"
+      tags    = { Name = "s3-vpc-endpoint" }
+    }
+  }
+}
