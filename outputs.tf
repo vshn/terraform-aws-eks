@@ -1,5 +1,5 @@
 output "kubeconfig" {
-  kubeconfig = <<-EOT
+  value = <<-EOT
     apiVersion: v1
     clusters:
     - cluster:
