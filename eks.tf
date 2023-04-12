@@ -34,23 +34,26 @@ module "cluster" {
   subnet_ids               = module.vpc.private_subnets
   control_plane_subnet_ids = module.vpc.intra_subnets
 
-  eks_managed_node_groups = {
-    default_node_group = {
-      ami_id                     = var.ami_id
-      enable_bootstrap_user_data = true
+  eks_managed_node_groups = merge(
+    {
+      default_node_group = {
+        ami_id                     = var.ami_id
+        enable_bootstrap_user_data = true
 
-      bootstrap_extra_args = "--kubelet-extra-args \"${join(" ", var.kubelet_args)}\""
+        bootstrap_extra_args = "--kubelet-extra-args \"${join(" ", var.kubelet_args)}\""
 
-      instance_types = var.instance_types
-      capacity_type  = "ON_DEMAND"
+        instance_types = var.instance_types
+        capacity_type  = "ON_DEMAND"
 
-      min_size     = var.min_size
-      max_size     = var.max_size
-      desired_size = var.desired_size
+        min_size     = var.min_size
+        max_size     = var.max_size
+        desired_size = var.desired_size
 
-      disk_size = var.disk_size
-    }
-  }
+        disk_size = var.disk_size
+      }
+    },
+    var.additional_node_groups
+  )
 
   cluster_enabled_log_types              = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
   cloudwatch_log_group_retention_in_days = var.cluster_log_retention

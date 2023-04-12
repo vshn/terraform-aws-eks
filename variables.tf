@@ -99,6 +99,12 @@ variable "disk_size" {
   default     = 20
 }
 
+variable "additional_node_groups" {
+  description = "Additional node groups to create"
+  type        = map(any)
+  default     = {}
+}
+
 variable "cluster_log_retention" {
   description = "The number of days to retain the EKS cluster logs"
   type        = number
