@@ -47,6 +47,8 @@ module "cluster" {
       min_size     = var.min_size
       max_size     = var.max_size
       desired_size = var.desired_size
+
+      disk_size = var.disk_size
     }
   }
 

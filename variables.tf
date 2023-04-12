@@ -93,6 +93,12 @@ variable "desired_size" {
   type        = number
 }
 
+variable "disk_size" {
+  description = "The disk size (in GB) to use for the EKS worker nodes"
+  type        = number
+  default     = 20
+}
+
 variable "cluster_log_retention" {
   description = "The number of days to retain the EKS cluster logs"
   type        = number
