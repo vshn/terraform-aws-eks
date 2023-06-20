@@ -27,8 +27,16 @@ output "kubeconfig" {
   EOT
 }
 
+# EKS
 output "oidc_provider_arn" {
   value = module.cluster.oidc_provider_arn
+}
+output "cluster_oidc_issuer_url" {
+  value = module.cluster.cluster_oidc_issuer_url
+}
+
+output "node_security_group_id" {
+  value = module.cluster.node_security_group_id
 }
 
 # VPC
@@ -37,4 +45,7 @@ output "vpc_id" {
 }
 output "private_route_table_ids" {
   value = module.vpc.private_route_table_ids
+}
+output "private_subnets" {
+  value = module.vpc.private_subnets
 }
