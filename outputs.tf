@@ -30,3 +30,11 @@ output "kubeconfig" {
 output "oidc_provider_arn" {
   value = module.cluster.oidc_provider_arn
 }
+
+# VPC
+output "vpc_id" {
+  value = module.vpc.vpc_id
+}
+output "private_route_table_ids" {
+  value = module.vpc.private_route_table_ids
+}
