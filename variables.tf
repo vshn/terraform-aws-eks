@@ -177,3 +177,8 @@ variable "manage_default_network_acl" {
   type        = bool
   default     = false
 }
+
+variable "route_table_ids" {
+  description = "IDs of the Route Table which is used for the VPC endpoint"
+  type        = string
+}

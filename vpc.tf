@@ -48,8 +48,9 @@ module "endpoints" {
 
   endpoints = {
     s3 = {
-      service = "s3"
-      tags    = { Name = "s3-vpc-endpoint" }
+      service         = "s3"
+      route_table_ids = var.route_table_ids
+      tags            = { Name = "s3-vpc-endpoint" }
     }
   }
 }
