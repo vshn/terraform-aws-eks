@@ -13,8 +13,7 @@ module "cluster" {
 
   cluster_addons = {
     coredns = {
-      preserve    = true
-      most_recent = true
+      addon_version = var.addon_version_coredns
 
       timeouts = {
         create = "25m"
@@ -22,10 +21,10 @@ module "cluster" {
       }
     }
     kube-proxy = {
-      most_recent = true
+      addon_version = var.addon_version_kube_proxy
     }
     vpc-cni = {
-      most_recent          = true
+      addon_version        = var.addon_version_vpc_cni
       configuration_values = jsonencode(var.vpc_cni_configuration_values)
     }
   }

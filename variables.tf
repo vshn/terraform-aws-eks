@@ -181,3 +181,18 @@ variable "manage_default_network_acl" {
   type        = bool
   default     = false
 }
+
+variable "addon_version_vpc_cni" {
+  description = "EKS Addon version for VPC-CNI"
+  type        = string
+}
+
+variable "addon_version_kube_proxy" {
+  description = "EKS Addon version for kube-proxy"
+  type        = string
+}
+
+variable "addon_version_coredns" {
+  description = "EKS Addon version for coredns"
+  type        = string
+}
