@@ -191,3 +191,9 @@ variable "addon_version_coredns" {
   description = "EKS Addon version for coredns"
   type        = string
 }
+
+variable "create_kms_key" {
+  description = "Controls if a KMS key for cluster encryption should be created"
+  type        = bolean
+  default     = false
+}
