@@ -194,6 +194,6 @@ variable "addon_version_coredns" {
 
 variable "create_kms_key" {
   description = "Controls if a KMS key for cluster encryption should be created"
-  type        = bolean
+  type        = bool
   default     = false
 }
