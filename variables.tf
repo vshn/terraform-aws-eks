@@ -125,11 +125,13 @@ variable "azs" {
 variable "enable_nat_gateway" {
   description = "Whether to enable NAT gateways for the VPC"
   type        = bool
+  default     = true
 }
 
 variable "single_nat_gateway" {
   description = "Whether to use a single NAT gateway for the VPC"
   type        = bool
+  default     = false
 }
 
 variable "enable_dns_hostnames" {
