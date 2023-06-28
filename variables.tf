@@ -50,15 +50,10 @@ variable "cluster_endpoint_public_access_cidrs" {
   default     = ["0.0.0.0/0"]
 }
 
-variable "vpc_cni_configuration_values" {
+variable "addon_version_vpc_cni_configuration_values" {
   description = "The configuration values for the VPC CNI plugin"
   type        = map(any)
-  default = {
-    env = {
-      ENABLE_PREFIX_DELEGATION = "true",
-      WARM_PREFIX_TARGET       = "1"
-    }
-  }
+  default     = {}
 }
 
 variable "ami_id" {

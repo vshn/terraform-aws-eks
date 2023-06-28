@@ -25,7 +25,7 @@ module "cluster" {
     }
     vpc-cni = {
       addon_version        = var.addon_version_vpc_cni
-      configuration_values = jsonencode(var.vpc_cni_configuration_values)
+      configuration_values = jsonencode(var.addon_version_vpc_cni_configuration_values)
     }
   }
 
