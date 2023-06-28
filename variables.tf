@@ -137,11 +137,13 @@ variable "single_nat_gateway" {
 variable "enable_dns_hostnames" {
   description = "Whether to enable DNS hostnames for the VPC"
   type        = bool
+  default     = true
 }
 
 variable "enable_flow_log" {
   description = "Whether to enable flow logs for the VPC"
   type        = bool
+  default     = false
 }
 
 variable "create_flow_log_cloudwatch_iam_role" {
