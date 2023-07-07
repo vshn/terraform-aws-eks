@@ -56,42 +56,49 @@ variable "addon_version_vpc_cni_configuration_values" {
   default     = {}
 }
 
-variable "ami_id" {
-  description = "The AMI ID to use for the EKS worker nodes"
-  type        = string
-}
+# variable "ami_id" {
+#   description = "The AMI ID to use for the EKS worker nodes"
+#   type        = string
+# }
 
-variable "kubelet_args" {
+variable "node_group_defaults_kubelet_args" {
   description = "The kubelet arguments to use for the EKS worker nodes"
   type        = list(string)
   default     = []
 }
 
-variable "instance_types" {
+variable "node_group_defaults_instance_types" {
   description = "The instance types to use for the EKS worker nodes"
   type        = list(string)
   default     = []
 }
 
-variable "min_size" {
-  description = "The minimum number of worker nodes"
-  type        = number
-}
+# variable "min_size" {
+#   description = "The minimum number of worker nodes"
+#   type        = number
+# }
 
-variable "max_size" {
-  description = "The maximum number of worker nodes"
-  type        = number
-}
+# variable "max_size" {
+#   description = "The maximum number of worker nodes"
+#   type        = number
+# }
 
-variable "desired_size" {
-  description = "The desired number of worker nodes"
-  type        = number
-}
+# variable "desired_size" {
+#   description = "The desired number of worker nodes"
+#   type        = number
+# }
 
-variable "disk_size" {
+variable "node_group_defaults_disk_size" {
   description = "The disk size (in GB) to use for the EKS worker nodes"
   type        = number
   default     = 20
+}
+
+
+variable "eks_managed_node_groups" {
+  description = "Map of EKS managed node group definitions to create"
+  type        = any
+  default     = {}
 }
 
 variable "additional_node_groups" {

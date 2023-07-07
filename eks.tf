@@ -1,3 +1,35 @@
+
+locals {
+  eks_managed_node_groups_with_worker_az = {
+    for key, node_group in var.eks_managed_node_groups :
+    key => node_group if contains(keys(node_group), "worker_availability_zones")
+  }
+
+  eks_managed_node_groups_with_subnet_ids = {
+    for key, node_group in local.eks_managed_node_groups_with_worker_az :
+    key => merge(node_group, { "subnet_ids" = data.aws_subnets.private[key].ids })
+  }
+
+  eks_managed_node_groups = merge(var.eks_managed_node_groups, local.eks_managed_node_groups_with_subnet_ids)
+}
+
+
+data "aws_subnets" "private" {
+  for_each = { for k, v in local.eks_managed_node_groups_with_worker_az : k => v }
+  filter {
+    name   = "vpc-id"
+    values = [module.vpc.vpc_id]
+  }
+  filter {
+    name   = "availability-zone"
+    values = each.value.worker_availability_zones
+  }
+  filter {
+    name   = "cidr-block"
+    values = var.private_subnets
+  }
+}
+
 module "cluster" {
   source  = "terraform-aws-modules/eks/aws"
   version = "19.12.0"
@@ -33,27 +65,14 @@ module "cluster" {
   vpc_id                   = module.vpc.vpc_id
   subnet_ids               = module.vpc.private_subnets
   control_plane_subnet_ids = module.vpc.intra_subnets
-
-  eks_managed_node_groups = merge(
-    {
-      default_node_group = {
-        ami_id                     = var.ami_id
-        enable_bootstrap_user_data = true
-
-        bootstrap_extra_args = "--kubelet-extra-args \"${join(" ", var.kubelet_args)}\""
-
-        instance_types = var.instance_types
-        capacity_type  = "ON_DEMAND"
-
-        min_size     = var.min_size
-        max_size     = var.max_size
-        desired_size = var.desired_size
-
-        disk_size = var.disk_size
-      }
-    },
-    var.additional_node_groups
-  )
+  eks_managed_node_group_defaults = {
+    disk_size                  = var.node_group_defaults_disk_size
+    instance_types             = var.node_group_defaults_instance_types
+    enable_bootstrap_user_data = true
+    bootstrap_extra_args       = "--kubelet-extra-args \"${join(" ", var.node_group_defaults_kubelet_args)}\""
+    capacity_type              = "ON_DEMAND"
+  }
+  eks_managed_node_groups = local.eks_managed_node_groups # use the manipulated local variable here. 
 
   cluster_enabled_log_types              = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
   cloudwatch_log_group_retention_in_days = var.cluster_log_retention
