@@ -28,6 +28,9 @@ data "aws_subnets" "private" {
     name   = "cidr-block"
     values = var.private_subnets
   }
+  depends_on = [
+    module.vpc
+  ]
 }
 
 module "cluster" {
