@@ -56,11 +56,6 @@ variable "addon_version_vpc_cni_configuration_values" {
   default     = {}
 }
 
-# variable "ami_id" {
-#   description = "The AMI ID to use for the EKS worker nodes"
-#   type        = string
-# }
-
 variable "node_group_defaults_kubelet_args" {
   description = "The kubelet arguments to use for the EKS worker nodes"
   type        = list(string)
@@ -72,21 +67,6 @@ variable "node_group_defaults_instance_types" {
   type        = list(string)
   default     = []
 }
-
-# variable "min_size" {
-#   description = "The minimum number of worker nodes"
-#   type        = number
-# }
-
-# variable "max_size" {
-#   description = "The maximum number of worker nodes"
-#   type        = number
-# }
-
-# variable "desired_size" {
-#   description = "The desired number of worker nodes"
-#   type        = number
-# }
 
 variable "node_group_defaults_disk_size" {
   description = "The disk size (in GB) to use for the EKS worker nodes"
