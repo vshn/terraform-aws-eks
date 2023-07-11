@@ -82,5 +82,7 @@ module "cluster" {
 
   prefix_separator                   = ""
   cluster_security_group_description = "EKS cluster security group."
-  manage_aws_auth_configmap          = true
+
+  manage_aws_auth_configmap = true
+  aws_auth_users            = var.aws_auth_users
 }
