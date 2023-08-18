@@ -71,7 +71,7 @@ variable "node_group_defaults_instance_types" {
 variable "node_group_defaults_disk_size" {
   description = "The disk size (in GB) to use for the EKS worker nodes"
   type        = number
-  default     = 20
+  default     = 100
 }
 
 
