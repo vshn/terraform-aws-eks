@@ -10,19 +10,19 @@ variable "vpc_name" {
 }
 
 variable "private_subnets" {
-  description = "The private subnets to use for the VPC"
+  description = "The private subnets to use for the VPC (Node Subnet)"
   type        = list(string)
   default     = null
 }
 
 variable "public_subnets" {
-  description = "The public subnets to use for the VPC"
+  description = "The public subnets to use for the VPC (Nat Gateway)"
   type        = list(string)
   default     = null
 }
 
 variable "intra_subnets" {
-  description = "The intra subnets to use for the VPC"
+  description = "The intra subnets to use for the VPC (Control Plane)"
   type        = list(string)
   default     = null
 }
