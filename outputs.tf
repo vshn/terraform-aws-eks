@@ -51,9 +51,9 @@ output "cluster_certificate_authority_data" {
 }
 
 # eks-managed-node-group
-output "node_iam_role_name" {
-  description = "The name of the Node IAM role"
-  value       = module.cluster.eks_managed_node_groups.iam_role_name
+output "eks_managed_node_groups" {
+  description = "EKS Manage Node Groups"
+  value       = module.cluster.eks_managed_node_groups
 }
 
 # VPC
