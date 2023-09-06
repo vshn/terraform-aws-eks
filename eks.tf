@@ -85,4 +85,5 @@ module "cluster" {
 
   manage_aws_auth_configmap = true
   aws_auth_users            = var.aws_auth_users
+  aws_auth_roles            = var.aws_auth_roles
 }
