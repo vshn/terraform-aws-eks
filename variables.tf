@@ -190,3 +190,9 @@ variable "aws_auth_users" {
   type        = list(any)
   default     = []
 }
+
+variable "aws_auth_roles" {
+  description = "List of role maps to add to the aws-auth configmap"
+  type        = list(any)
+  default     = []
+}
