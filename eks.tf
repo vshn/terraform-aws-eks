@@ -44,6 +44,8 @@ module "cluster" {
   cluster_endpoint_public_access       = var.cluster_endpoint_public_access
   cluster_endpoint_public_access_cidrs = var.cluster_endpoint_public_access_cidrs
 
+  cluster_security_group_additional_rules = var.cluster_security_group_additional_rules
+
   enable_irsa               = true
   create_kms_key            = var.create_kms_key
   cluster_encryption_config = {} # This disables secret encryption
