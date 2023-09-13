@@ -81,12 +81,6 @@ variable "eks_managed_node_groups" {
   default     = {}
 }
 
-variable "additional_node_groups" {
-  description = "Additional node groups to create"
-  type        = map(any)
-  default     = {}
-}
-
 variable "cluster_log_retention" {
   description = "The number of days to retain the EKS cluster logs"
   type        = number
