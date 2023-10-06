@@ -9,8 +9,26 @@ variable "vpc_name" {
   default     = ""
 }
 
+variable "vpc_id" {
+  description = "The ID of the VPC"
+  type        = string
+  default     = ""
+}
+
+variable "enable_eks_vpc" {
+  description = "This enables the VPC in the module-aws-eks"
+  type        = bool
+  default     = true
+}
+
 variable "private_subnets" {
   description = "The private subnets to use for the VPC (Node Subnet)"
+  type        = list(string)
+  default     = null
+}
+
+variable "private_subnets_ids" {
+  description = "The private subnet ID from the VPC (Node Subnet)"
   type        = list(string)
   default     = null
 }
@@ -23,6 +41,12 @@ variable "public_subnets" {
 
 variable "intra_subnets" {
   description = "The intra subnets to use for the VPC (Control Plane)"
+  type        = list(string)
+  default     = null
+}
+
+variable "intra_subnets_ids" {
+  description = "The intra subnet ID from the VPC (Control Plane)"
   type        = list(string)
   default     = null
 }

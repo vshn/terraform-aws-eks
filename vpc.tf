@@ -6,6 +6,7 @@ locals {
 }
 
 module "vpc" {
+  count   = var.enable_eks_vpc ? 1 : 0
   source  = "terraform-aws-modules/vpc/aws"
   version = "5.1.2"
 
@@ -42,6 +43,7 @@ module "vpc" {
 }
 
 module "endpoints" {
+  count   = var.enable_eks_vpc ? 1 : 0
   source  = "terraform-aws-modules/vpc/aws//modules/vpc-endpoints"
   version = "5.1.2"
 
