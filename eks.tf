@@ -17,11 +17,10 @@ locals {
   eks_managed_node_groups = merge(var.eks_managed_node_groups, local.eks_managed_node_groups_with_subnet_ids)
 }
 
-# When the VPC will be created with the module
+# Subnet IDs when VPC is created with this module
 data "aws_subnets" "private_internal_vpc" {
   for_each = {
     for k, v in local.eks_managed_node_groups_with_worker_az : k => v
-    #if var.enable_eks_vpc # This checks runs only if the vpc is enabled
   }
   filter {
     name   = "vpc-id"
@@ -40,6 +39,7 @@ data "aws_subnets" "private_internal_vpc" {
   ]
 }
 
+# SubnetIDs if VPC is provided externally
 data "aws_subnets" "private_external_vpc" {
   for_each = {
     for k, v in local.eks_managed_node_groups_with_worker_az : k => v
