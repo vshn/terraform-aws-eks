@@ -1,5 +1,9 @@
 
 locals {
+  vpc_id              = try(module.vpc[0].vpc_id, var.vpc_id, null)
+  private_subnet_ids  = try(module.vpc[0].private_subnets, var.private_subnets_ids, null)
+  intra_subnet_ids    = try(module.vpc[0].intra_subnets, var.intra_subnets_ids, null)
+  data_private_subnet = try(data.aws_subnets.private_internal_vpc, data.aws_subnets.private_external_vpc, null)
   eks_managed_node_groups_with_worker_az = {
     for key, node_group in var.eks_managed_node_groups :
     key => node_group if contains(keys(node_group), "worker_availability_zones")
@@ -7,18 +11,20 @@ locals {
 
   eks_managed_node_groups_with_subnet_ids = {
     for key, node_group in local.eks_managed_node_groups_with_worker_az :
-    key => merge(node_group, { "subnet_ids" = data.aws_subnets.private[key].ids })
+    key => merge(node_group, { "subnet_ids" = local.data_private_subnet[key].ids })
   }
 
   eks_managed_node_groups = merge(var.eks_managed_node_groups, local.eks_managed_node_groups_with_subnet_ids)
 }
 
-
-data "aws_subnets" "private" {
-  for_each = { for k, v in local.eks_managed_node_groups_with_worker_az : k => v }
+# Subnet IDs when VPC is created with this module
+data "aws_subnets" "private_internal_vpc" {
+  for_each = {
+    for k, v in local.eks_managed_node_groups_with_worker_az : k => v
+  }
   filter {
     name   = "vpc-id"
-    values = [module.vpc.vpc_id]
+    values = [local.vpc_id]
   }
   filter {
     name   = "availability-zone"
@@ -29,9 +35,30 @@ data "aws_subnets" "private" {
     values = var.private_subnets
   }
   depends_on = [
-    module.vpc
+    module.vpc[0]
   ]
 }
+
+# SubnetIDs if VPC is provided externally
+data "aws_subnets" "private_external_vpc" {
+  for_each = {
+    for k, v in local.eks_managed_node_groups_with_worker_az : k => v
+    if !var.enable_eks_vpc # This checks runs only if the vpc is enabled
+  }
+  filter {
+    name   = "vpc-id"
+    values = [local.vpc_id]
+  }
+  filter {
+    name   = "availability-zone"
+    values = each.value.worker_availability_zones
+  }
+  filter {
+    name   = "cidr-block"
+    values = var.private_subnets
+  }
+}
+
 
 module "cluster" {
   source  = "terraform-aws-modules/eks/aws"
@@ -68,9 +95,9 @@ module "cluster" {
     }
   }
 
-  vpc_id                   = module.vpc.vpc_id
-  subnet_ids               = module.vpc.private_subnets
-  control_plane_subnet_ids = module.vpc.intra_subnets
+  vpc_id                   = local.vpc_id
+  subnet_ids               = local.private_subnet_ids
+  control_plane_subnet_ids = local.intra_subnet_ids
   eks_managed_node_group_defaults = {
     disk_size                  = var.node_group_defaults_disk_size
     instance_types             = var.node_group_defaults_instance_types

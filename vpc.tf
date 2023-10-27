@@ -6,6 +6,7 @@ locals {
 }
 
 module "vpc" {
+  count   = var.enable_eks_vpc ? 1 : 0
   source  = "terraform-aws-modules/vpc/aws"
   version = "5.1.2"
 
@@ -42,17 +43,18 @@ module "vpc" {
 }
 
 module "endpoints" {
+  count   = var.enable_eks_vpc ? 1 : 0
   source  = "terraform-aws-modules/vpc/aws//modules/vpc-endpoints"
   version = "5.1.2"
 
-  vpc_id             = module.vpc.vpc_id
-  security_group_ids = [module.vpc.default_security_group_id]
+  vpc_id             = module.vpc[0].vpc_id
+  security_group_ids = [module.vpc[0].default_security_group_id]
 
   endpoints = {
     s3 = {
       service         = "s3"
       service_type    = "Gateway"
-      route_table_ids = module.vpc.private_route_table_ids
+      route_table_ids = module.vpc[0].private_route_table_ids
       tags            = { Name = "s3-vpc-endpoint" }
     }
   }

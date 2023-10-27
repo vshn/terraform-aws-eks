@@ -58,14 +58,14 @@ output "eks_managed_node_groups" {
 
 # VPC
 output "vpc_id" {
-  value = module.vpc.vpc_id
+  value = try(module.vpc[0].vpc_id, null)
 }
 output "private_route_table_ids" {
-  value = module.vpc.private_route_table_ids
+  value = try(module.vpc[0].private_route_table_ids, null)
 }
 output "private_subnets" {
-  value = module.vpc.private_subnets
+  value = try(module.vpc[0].private_subnets, null)
 }
 output "public_subnets" {
-  value = module.vpc.public_subnets
+  value = try(module.vpc[0].public_subnets, null)
 }
