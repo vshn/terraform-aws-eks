@@ -1,8 +1,8 @@
 
 locals {
-  vpc_id              = try(module.vpc.vpc_id, var.vpc_id, null)
-  private_subnet_ids  = try(module.vpc.private_subnets, var.private_subnets_ids, null)
-  intra_subnet_ids    = try(module.vpc.intra_subnets, var.intra_subnets_ids, null)
+  vpc_id              = try(module.vpc[0].vpc_id, var.vpc_id, null)
+  private_subnet_ids  = try(module.vpc[0].private_subnets, var.private_subnets_ids, null)
+  intra_subnet_ids    = try(module.vpc[0].intra_subnets, var.intra_subnets_ids, null)
   data_private_subnet = try(data.aws_subnets.private_internal_vpc, data.aws_subnets.private_external_vpc, null)
   eks_managed_node_groups_with_worker_az = {
     for key, node_group in var.eks_managed_node_groups :
@@ -21,7 +21,7 @@ locals {
 data "aws_subnets" "private_internal_vpc" {
   for_each = {
     for k, v in local.eks_managed_node_groups_with_worker_az : k => v
-    if var.enable_eks_vpc[1] # This checks runs only if the vpc is enabled
+    #if var.enable_eks_vpc # This checks runs only if the vpc is enabled
   }
   filter {
     name   = "vpc-id"
@@ -36,14 +36,14 @@ data "aws_subnets" "private_internal_vpc" {
     values = var.private_subnets
   }
   depends_on = [
-    module.vpc
+    module.vpc[0]
   ]
 }
 
 data "aws_subnets" "private_external_vpc" {
   for_each = {
     for k, v in local.eks_managed_node_groups_with_worker_az : k => v
-    if var.enable_eks_vpc[0] # This checks runs only if the vpc is enabled
+    if !var.enable_eks_vpc # This checks runs only if the vpc is enabled
   }
   filter {
     name   = "vpc-id"
