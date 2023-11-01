@@ -62,7 +62,7 @@ data "aws_subnets" "private_external_vpc" {
 
 module "cluster" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "19.17.2"
+  version = "19.17.4"
 
   cluster_name    = var.cluster_name
   cluster_version = var.cluster_version
