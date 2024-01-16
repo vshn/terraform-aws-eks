@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.1.0
+- Update terraform-aws-modules/vpc to 5.5.1
+- Update terraform to 1.6.6
+- Update terrafowm-aws-modules/eks to 19.21.0
 ## v2.0.0
 - Add the option, to provide a VPC instead of creating it within the module
 - This is a breaking change since there has to been state migration invovled.
