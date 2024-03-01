@@ -111,6 +111,12 @@ variable "cluster_log_retention" {
   default     = 7
 }
 
+variable "cluster_enabled_log_types" {
+  description = "The types of logs sent to Cloudwatch"
+  type        = list(any)
+  default     = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
+}
+
 variable "vpc_cidr" {
   description = "The CIDR block for the VPC"
   type        = string

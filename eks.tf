@@ -107,7 +107,7 @@ module "cluster" {
   }
   eks_managed_node_groups = local.eks_managed_node_groups # use the manipulated local variable here. 
 
-  cluster_enabled_log_types              = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
+  cluster_enabled_log_types              = var.cluster_enabled_log_types
   cloudwatch_log_group_retention_in_days = var.cluster_log_retention
 
   prefix_separator                   = ""
