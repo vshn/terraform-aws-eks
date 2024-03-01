@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.2.0
+- Allow configuration of log types
+
 ## v2.1.0
 - Update terraform-aws-modules/vpc to 5.5.1
 - Update terraform to 1.6.6
