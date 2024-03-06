@@ -8,7 +8,7 @@ locals {
 module "vpc" {
   count   = var.enable_eks_vpc ? 1 : 0
   source  = "terraform-aws-modules/vpc/aws"
-  version = "5.5.2"
+  version = "5.5.3"
 
   name = local.vpc_name
   cidr = var.vpc_cidr
@@ -45,7 +45,7 @@ module "vpc" {
 module "endpoints" {
   count   = var.enable_eks_vpc ? 1 : 0
   source  = "terraform-aws-modules/vpc/aws//modules/vpc-endpoints"
-  version = "5.5.2"
+  version = "5.5.3"
 
   vpc_id             = module.vpc[0].vpc_id
   security_group_ids = [module.vpc[0].default_security_group_id]
