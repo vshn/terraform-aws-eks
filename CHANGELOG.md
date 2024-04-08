@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.2.4
+-  Update terraform-aws-modules/vpc/aws to v5.7.1
+
 ## v2.2.3
 - Update terraform-aws-modules/vpc/aws to v5.7.0 
 
