@@ -153,6 +153,12 @@ variable "enable_flow_log" {
   default     = false
 }
 
+variable "enable_ipv6" {
+  description = "Whether to enable IPv6 for VPC. Requests an Amazon-provided IPv6 CIDR block with a /56 prefix length for the VPC"
+  type        = bool
+  default     = false
+}
+
 variable "create_flow_log_cloudwatch_iam_role" {
   description = "Whether to create the IAM role for the flow log"
   type        = bool
