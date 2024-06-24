@@ -1,5 +1,8 @@
 # Changelog
 
+## v3.4.0
+- Add IPv6 support to VPC
+
 ## v3.3.0
 - Update terraform-aws-modules/eks/aws to v20.14.0
 

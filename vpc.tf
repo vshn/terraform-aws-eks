@@ -21,6 +21,7 @@ module "vpc" {
   enable_nat_gateway   = var.enable_nat_gateway
   single_nat_gateway   = var.single_nat_gateway
   enable_dns_hostnames = var.enable_dns_hostnames
+  enable_ipv6          = var.enable_ipv6
 
   enable_flow_log                      = var.enable_flow_log
   create_flow_log_cloudwatch_iam_role  = var.create_flow_log_cloudwatch_iam_role
