@@ -1,5 +1,8 @@
 # Changelog
 
+## v3.4.1
+- Disable unnecessary IPv6 features
+
 ## v3.4.0
 - Add IPv6 support to VPC
 

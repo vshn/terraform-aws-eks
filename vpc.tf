@@ -23,6 +23,14 @@ module "vpc" {
   enable_dns_hostnames = var.enable_dns_hostnames
   enable_ipv6          = var.enable_ipv6
 
+  intra_subnet_enable_dns64   = false
+  private_subnet_enable_dns64 = false
+  public_subnet_enable_dns64  = false
+
+  intra_subnet_enable_resource_name_dns_aaaa_record_on_launch   = false
+  private_subnet_enable_resource_name_dns_aaaa_record_on_launch = false
+  public_subnet_enable_resource_name_dns_aaaa_record_on_launch  = false
+
   enable_flow_log                      = var.enable_flow_log
   create_flow_log_cloudwatch_iam_role  = var.create_flow_log_cloudwatch_iam_role
   create_flow_log_cloudwatch_log_group = var.create_flow_log_cloudwatch_log_group
