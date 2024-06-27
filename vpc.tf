@@ -1,8 +1,9 @@
 locals {
-  vpc_name        = var.vpc_name != "" ? var.vpc_name : "${var.cluster_name}-vpc"
-  private_subnets = var.private_subnets != null ? var.private_subnets : [for k, v in var.azs : cidrsubnet(var.vpc_cidr, 4, k)]
-  public_subnets  = var.public_subnets != null ? var.public_subnets : [for k, v in var.azs : cidrsubnet(var.vpc_cidr, 8, k + 48)]
-  intra_subnets   = var.intra_subnets != null ? var.intra_subnets : [for k, v in var.azs : cidrsubnet(var.vpc_cidr, 8, k + 52)]
+  vpc_name                    = var.vpc_name != "" ? var.vpc_name : "${var.cluster_name}-vpc"
+  private_subnets             = var.private_subnets != null ? var.private_subnets : [for k, v in var.azs : cidrsubnet(var.vpc_cidr, 4, k)]
+  public_subnets              = var.public_subnets != null ? var.public_subnets : [for k, v in var.azs : cidrsubnet(var.vpc_cidr, 8, k + 48)]
+  intra_subnets               = var.intra_subnets != null ? var.intra_subnets : [for k, v in var.azs : cidrsubnet(var.vpc_cidr, 8, k + 52)]
+  public_subnet_ipv6_prefixes = var.enable_ipv6 ? [for subnet in var.public_subnets : tonumber(split(".", subnet)[2])] : []
 }
 
 module "vpc" {
@@ -18,10 +19,11 @@ module "vpc" {
   public_subnets  = local.public_subnets
   intra_subnets   = local.intra_subnets
 
-  enable_nat_gateway   = var.enable_nat_gateway
-  single_nat_gateway   = var.single_nat_gateway
-  enable_dns_hostnames = var.enable_dns_hostnames
-  enable_ipv6          = var.enable_ipv6
+  enable_nat_gateway          = var.enable_nat_gateway
+  single_nat_gateway          = var.single_nat_gateway
+  enable_dns_hostnames        = var.enable_dns_hostnames
+  enable_ipv6                 = var.enable_ipv6
+  public_subnet_ipv6_prefixes = local.public_subnet_ipv6_prefixes
 
   intra_subnet_enable_dns64   = false
   private_subnet_enable_dns64 = false
