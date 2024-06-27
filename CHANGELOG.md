@@ -1,5 +1,8 @@
 # Changelog
 
+## v3.5.0
+- Update terraform-aws-modules/eks/aws to v20.15.0
+
 ## v3.4.1
 - Disable unnecessary IPv6 features
 
