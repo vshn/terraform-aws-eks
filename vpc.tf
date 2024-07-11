@@ -14,6 +14,8 @@ module "vpc" {
   name = local.vpc_name
   cidr = var.vpc_cidr
 
+  secondary_cidr_blocks = var.secondary_cidr_blocks
+
   azs             = var.azs
   private_subnets = local.private_subnets
   public_subnets  = local.public_subnets

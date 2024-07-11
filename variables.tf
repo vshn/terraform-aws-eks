@@ -123,6 +123,12 @@ variable "vpc_cidr" {
   default     = "10.220.0.0/16"
 }
 
+variable "secondary_cidr_blocks" {
+  description = "Secondary CIDR blocks for the VPC"
+  type        = list(string)
+  default     = []
+}
+
 variable "azs" {
   description = "The availability zones to use for the VPC"
   type        = list(string)
