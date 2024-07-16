@@ -1,5 +1,8 @@
 # Changelog
 
+## v3.6.1
+- Update terraform-aws-modules/eks/aws to v20.19.0 
+
 ## v3.6.0
 -  Add support for secondary CIDR blocks
 
