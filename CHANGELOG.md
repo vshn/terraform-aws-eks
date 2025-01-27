@@ -1,5 +1,8 @@
 # Changelog
 
+## v3.15.0
+- Update terraform-aws-modules/vpc/aws to v5.18.0
+
 ## v3.14.1
 - Update terraform-aws-modules/eks/aws to v20.33.1
 
