@@ -104,6 +104,7 @@ module "cluster" {
     enable_bootstrap_user_data = true
     bootstrap_extra_args       = "--kubelet-extra-args \"${join(" ", var.node_group_defaults_kubelet_args)}\""
     capacity_type              = "ON_DEMAND"
+    node_repair_config         = var.node_group_defaults_node_repair_config
   }
   eks_managed_node_groups = local.eks_managed_node_groups # use the manipulated local variable here. 
 

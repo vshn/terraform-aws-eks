@@ -98,6 +98,13 @@ variable "node_group_defaults_disk_size" {
   default     = 100
 }
 
+variable "node_group_defaults_node_repair_config" {
+  description = "The node auto repair configuration for the node group"
+  type = object({
+    enabled = bool
+  })
+  default = null
+}
 
 variable "eks_managed_node_groups" {
   description = "Map of EKS managed node group definitions to create"
