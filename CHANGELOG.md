@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.19.0
+- Add support for auto node repair
+- Add support for additional addons
+
 ## v3.18.0
 - Update terraform-aws-modules/eks/aws to v20.35.0
 

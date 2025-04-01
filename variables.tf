@@ -252,3 +252,9 @@ variable "node_security_group_additional_rules" {
   type        = any
   default     = {}
 }
+
+variable "additional_addons" {
+  description = "Map of additional addons"
+  type        = any
+  default     = {}
+}
