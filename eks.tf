@@ -15,6 +15,27 @@ locals {
   }
 
   eks_managed_node_groups = merge(var.eks_managed_node_groups, local.eks_managed_node_groups_with_subnet_ids)
+
+  cluster_addons = merge(
+    {
+      coredns = {
+        addon_version = var.addon_version_coredns
+
+        timeouts = {
+          create = "25m"
+          delete = "10m"
+        }
+      }
+      kube-proxy = {
+        addon_version = var.addon_version_kube_proxy
+      }
+      vpc-cni = {
+        addon_version        = var.addon_version_vpc_cni
+        configuration_values = jsonencode(var.addon_version_vpc_cni_configuration_values)
+      }
+    },
+    var.additional_addons
+  )
 }
 
 # Subnet IDs when VPC is created with this module
@@ -77,23 +98,7 @@ module "cluster" {
   enable_irsa               = true
   create_kms_key            = var.create_kms_key
   cluster_encryption_config = {} # This disables secret encryption
-  cluster_addons = {
-    coredns = {
-      addon_version = var.addon_version_coredns
-
-      timeouts = {
-        create = "25m"
-        delete = "10m"
-      }
-    }
-    kube-proxy = {
-      addon_version = var.addon_version_kube_proxy
-    }
-    vpc-cni = {
-      addon_version        = var.addon_version_vpc_cni
-      configuration_values = jsonencode(var.addon_version_vpc_cni_configuration_values)
-    }
-  }
+  cluster_addons            = local.cluster_addons
 
   vpc_id                   = local.vpc_id
   subnet_ids               = local.private_subnet_ids
@@ -104,6 +109,7 @@ module "cluster" {
     enable_bootstrap_user_data = true
     bootstrap_extra_args       = "--kubelet-extra-args \"${join(" ", var.node_group_defaults_kubelet_args)}\""
     capacity_type              = "ON_DEMAND"
+    node_repair_config         = var.node_group_defaults_node_repair_config
   }
   eks_managed_node_groups = local.eks_managed_node_groups # use the manipulated local variable here. 
 
