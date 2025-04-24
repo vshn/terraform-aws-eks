@@ -1,5 +1,8 @@
 # Changelog
 
+## v3.20.0
+- Update terraform-aws-modules/vpc/aws to v5.21.0
+
 ## v3.19.0
 - Add support for auto node repair
 - Add support for additional addons
