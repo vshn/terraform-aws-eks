@@ -258,3 +258,9 @@ variable "additional_addons" {
   type        = any
   default     = {}
 }
+
+variable "node_group_defaults_iam_role_policies" {
+  description = "Policies to attach to every MNG IAM role"
+  type        = map(string)
+  default     = {}
+}
