@@ -104,12 +104,13 @@ module "cluster" {
   subnet_ids               = local.private_subnet_ids
   control_plane_subnet_ids = local.intra_subnet_ids
   eks_managed_node_group_defaults = {
-    disk_size                  = var.node_group_defaults_disk_size
-    instance_types             = var.node_group_defaults_instance_types
-    enable_bootstrap_user_data = true
-    bootstrap_extra_args       = "--kubelet-extra-args \"${join(" ", var.node_group_defaults_kubelet_args)}\""
-    capacity_type              = "ON_DEMAND"
-    node_repair_config         = var.node_group_defaults_node_repair_config
+    disk_size                    = var.node_group_defaults_disk_size
+    instance_types               = var.node_group_defaults_instance_types
+    enable_bootstrap_user_data   = true
+    bootstrap_extra_args         = "--kubelet-extra-args \"${join(" ", var.node_group_defaults_kubelet_args)}\""
+    capacity_type                = "ON_DEMAND"
+    node_repair_config           = var.node_group_defaults_node_repair_config
+    iam_role_additional_policies = var.node_group_defaults_iam_role_policies
   }
   eks_managed_node_groups = local.eks_managed_node_groups # use the manipulated local variable here. 
 
