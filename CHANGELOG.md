@@ -1,5 +1,8 @@
 # Changelog
 
+## v3.23.0
+- Add support for default node group IAM role policies
+
 ## v3.22.2
 - Update terraform-aws-modules/eks/aws to v20.37.2
 
