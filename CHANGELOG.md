@@ -1,5 +1,8 @@
 # Changelog
 
+## v3.24.0
+- Add support for access entries
+
 ## v3.23.0
 - Add support for default node group IAM role policies
 
