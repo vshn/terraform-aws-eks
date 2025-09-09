@@ -264,3 +264,9 @@ variable "node_group_defaults_iam_role_policies" {
   type        = map(string)
   default     = {}
 }
+
+variable "access_entries" {
+  description = "Map of access entries to add to the cluster"
+  type        = any
+  default     = {}
+}

@@ -121,6 +121,7 @@ module "cluster" {
   cluster_security_group_description = "EKS cluster security group."
 
   kms_key_enable_default_policy = false
+  access_entries                = var.access_entries
 }
 
 module "cluster_auth" {
