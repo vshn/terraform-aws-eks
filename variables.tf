@@ -80,12 +80,6 @@ variable "addon_version_vpc_cni_configuration_values" {
   default     = {}
 }
 
-variable "node_group_defaults_kubelet_args" {
-  description = "The kubelet arguments to use for the EKS worker nodes"
-  type        = list(string)
-  default     = []
-}
-
 variable "node_group_defaults_instance_types" {
   description = "The instance types to use for the EKS worker nodes"
   type        = list(string)
@@ -227,18 +221,6 @@ variable "create_kms_key" {
   description = "Controls if a KMS key for cluster encryption should be created"
   type        = bool
   default     = false
-}
-
-variable "aws_auth_users" {
-  description = "List of user maps to add to the aws-auth configmap"
-  type        = list(any)
-  default     = []
-}
-
-variable "aws_auth_roles" {
-  description = "List of role maps to add to the aws-auth configmap"
-  type        = list(any)
-  default     = []
 }
 
 variable "cluster_security_group_additional_rules" {

@@ -106,8 +106,6 @@ module "cluster" {
   eks_managed_node_group_defaults = {
     disk_size                    = var.node_group_defaults_disk_size
     instance_types               = var.node_group_defaults_instance_types
-    enable_bootstrap_user_data   = true
-    bootstrap_extra_args         = "--kubelet-extra-args \"${join(" ", var.node_group_defaults_kubelet_args)}\""
     capacity_type                = "ON_DEMAND"
     node_repair_config           = var.node_group_defaults_node_repair_config
     iam_role_additional_policies = var.node_group_defaults_iam_role_policies
@@ -122,12 +120,4 @@ module "cluster" {
 
   kms_key_enable_default_policy = false
   access_entries                = var.access_entries
-}
-
-module "cluster_auth" {
-  source                    = "terraform-aws-modules/eks/aws//modules/aws-auth"
-  version                   = "20.37.2"
-  manage_aws_auth_configmap = true
-  aws_auth_users            = var.aws_auth_users
-  aws_auth_roles            = var.aws_auth_roles
 }
