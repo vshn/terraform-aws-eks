@@ -123,11 +123,3 @@ module "cluster" {
   kms_key_enable_default_policy = false
   access_entries                = var.access_entries
 }
-
-module "cluster_auth" {
-  source                    = "terraform-aws-modules/eks/aws//modules/aws-auth"
-  version                   = "20.37.2"
-  manage_aws_auth_configmap = true
-  aws_auth_users            = var.aws_auth_users
-  aws_auth_roles            = var.aws_auth_roles
-}
