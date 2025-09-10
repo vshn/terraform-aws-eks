@@ -1,5 +1,8 @@
 # Changelog
 
+## v3.25.0
+- Remove aws auth module and references to old AL2 node groups
+
 ## v3.24.0
 - Add support for access entries
 
