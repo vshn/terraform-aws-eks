@@ -80,12 +80,6 @@ variable "addon_version_vpc_cni_configuration_values" {
   default     = {}
 }
 
-variable "node_group_defaults_kubelet_args" {
-  description = "The kubelet arguments to use for the EKS worker nodes"
-  type        = list(string)
-  default     = []
-}
-
 variable "node_group_defaults_instance_types" {
   description = "The instance types to use for the EKS worker nodes"
   type        = list(string)
