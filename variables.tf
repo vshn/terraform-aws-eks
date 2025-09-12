@@ -80,26 +80,6 @@ variable "addon_version_vpc_cni_configuration_values" {
   default     = {}
 }
 
-variable "node_group_defaults_instance_types" {
-  description = "The instance types to use for the EKS worker nodes"
-  type        = list(string)
-  default     = []
-}
-
-variable "node_group_defaults_disk_size" {
-  description = "The disk size (in GB) to use for the EKS worker nodes"
-  type        = number
-  default     = 100
-}
-
-variable "node_group_defaults_node_repair_config" {
-  description = "The node auto repair configuration for the node group"
-  type = object({
-    enabled = bool
-  })
-  default = null
-}
-
 variable "eks_managed_node_groups" {
   description = "Map of EKS managed node group definitions to create"
   type        = any
@@ -238,12 +218,6 @@ variable "node_security_group_additional_rules" {
 variable "additional_addons" {
   description = "Map of additional addons"
   type        = any
-  default     = {}
-}
-
-variable "node_group_defaults_iam_role_policies" {
-  description = "Policies to attach to every MNG IAM role"
-  type        = map(string)
   default     = {}
 }
 
