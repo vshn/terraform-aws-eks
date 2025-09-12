@@ -83,40 +83,34 @@ data "aws_subnets" "private_external_vpc" {
 
 module "cluster" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "20.37.2"
+  version = "21.2.0"
 
-  cluster_name    = var.cluster_name
-  cluster_version = var.cluster_version
+  name               = var.cluster_name
+  kubernetes_version = var.cluster_version
 
-  cluster_endpoint_private_access      = var.cluster_endpoint_private_access
-  cluster_endpoint_public_access       = var.cluster_endpoint_public_access
-  cluster_endpoint_public_access_cidrs = var.cluster_endpoint_public_access_cidrs
+  endpoint_private_access      = var.cluster_endpoint_private_access
+  endpoint_public_access       = var.cluster_endpoint_public_access
+  endpoint_public_access_cidrs = var.cluster_endpoint_public_access_cidrs
 
-  cluster_security_group_additional_rules = var.cluster_security_group_additional_rules
-  node_security_group_additional_rules    = var.node_security_group_additional_rules
+  security_group_additional_rules      = var.cluster_security_group_additional_rules
+  node_security_group_additional_rules = var.node_security_group_additional_rules
 
-  enable_irsa               = true
-  create_kms_key            = var.create_kms_key
-  cluster_encryption_config = {} # This disables secret encryption
-  cluster_addons            = local.cluster_addons
+  enable_irsa       = true
+  create_kms_key    = var.create_kms_key
+  encryption_config = {} # This disables secret encryption
+  addons            = local.cluster_addons
 
   vpc_id                   = local.vpc_id
   subnet_ids               = local.private_subnet_ids
   control_plane_subnet_ids = local.intra_subnet_ids
-  eks_managed_node_group_defaults = {
-    disk_size                    = var.node_group_defaults_disk_size
-    instance_types               = var.node_group_defaults_instance_types
-    capacity_type                = "ON_DEMAND"
-    node_repair_config           = var.node_group_defaults_node_repair_config
-    iam_role_additional_policies = var.node_group_defaults_iam_role_policies
-  }
+
   eks_managed_node_groups = local.eks_managed_node_groups # use the manipulated local variable here. 
 
-  cluster_enabled_log_types              = var.cluster_enabled_log_types
+  enabled_log_types                      = var.cluster_enabled_log_types
   cloudwatch_log_group_retention_in_days = var.cluster_log_retention
 
-  prefix_separator                   = ""
-  cluster_security_group_description = "EKS cluster security group."
+  prefix_separator           = ""
+  security_group_description = "EKS cluster security group."
 
   kms_key_enable_default_policy = false
   access_entries                = var.access_entries
