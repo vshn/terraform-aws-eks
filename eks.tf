@@ -97,7 +97,7 @@ module "cluster" {
 
   enable_irsa       = true
   create_kms_key    = var.create_kms_key
-  encryption_config = {} # This disables secret encryption
+  encryption_config = null # This disables secret encryption
   addons            = local.cluster_addons
 
   vpc_id                   = local.vpc_id
