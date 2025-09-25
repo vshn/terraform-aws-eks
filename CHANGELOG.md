@@ -1,5 +1,12 @@
 # Changelog
 
+## v4.1.0
+- Update Terraform terraform-aws-modules/eks/aws to v21.3.1
+- Update Terraform terraform-aws-modules/vpc/aws to v6.2.0
+
+## v4.0.0
+- Update terraform-aws-modules/eks/aws to v21.2.0
+
 ## v3.25.0
 - Remove aws auth module and references to old AL2 node groups
 
