@@ -83,7 +83,7 @@ data "aws_subnets" "private_external_vpc" {
 
 module "cluster" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "21.3.1"
+  version = "21.3.2"
 
   name               = var.cluster_name
   kubernetes_version = var.cluster_version
