@@ -32,6 +32,7 @@ locals {
       vpc-cni = {
         addon_version        = var.addon_version_vpc_cni
         configuration_values = jsonencode(var.addon_version_vpc_cni_configuration_values)
+        before_compute       = true
       }
     },
     var.additional_addons
