@@ -1,5 +1,8 @@
 # Changelog
 
+## v4.8.1
+- Update terraform-aws-modules/vpc/aws to v6.5.1
+
 ## v4.8.0
 - Add "before_compute = true" to vpc-cni addon
 
