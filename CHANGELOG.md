@@ -1,5 +1,8 @@
 # Changelog
 
+## v4.17.0
+- Update terraform-aws-modules/eks/aws to v21.20.0
+
 ## v4.16.0
 - Update terraform-aws-modules/eks/aws to v21.19.0
 
